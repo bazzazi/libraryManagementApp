@@ -1,0 +1,520 @@
+WindowManager:
+    LoginScreen:
+    AdminScreen:
+    UserScreen:
+    EmployeeScreen:
+
+<hint_button@MDTooltip+MDIconButton>
+
+<EmployeeScreen>:
+    id:employee
+    name:'employee'
+    MDNavigationLayout:
+        MDScreenManager:
+            id:screenmanager_employee
+            MDScreen:
+                name:'employee-home'
+                MDTopAppBar:
+                    title:'Employee Home'
+                    
+                    right_action_items: [["volume-high", lambda x: app.play_sound()],['information',lambda x:app.about()],['logout',lambda x:app.logout()]]
+                    left_action_items:[['menu',lambda x:nav_drawer.set_state('open')]]
+
+            MDScreen:
+                name:'search-book-employee'
+                MDTopAppBar:
+                    title:'Search Book'
+                    
+                    right_action_items: [["volume-high", lambda x: app.play_sound()],['information',lambda x:app.about()],['logout',lambda x:app.logout()]]
+                    left_action_items:[['menu',lambda x:nav_drawer.set_state('open')]]
+
+            MDScreen:
+                name:'search-user-employee'
+                MDTopAppBar:
+                    title:'Search User'
+                    
+                    right_action_items: [["volume-high", lambda x: app.play_sound()],['information',lambda x:app.about()],['logout',lambda x:app.logout()]]
+                    left_action_items:[['menu',lambda x:nav_drawer.set_state('open')]]
+
+            MDScreen:
+                name:'reserved-book-employee'
+                MDTopAppBar:
+                    title:'Reserved Book'
+                    
+                    right_action_items: [["volume-high", lambda x: app.play_sound()],['information',lambda x:app.about()],['logout',lambda x:app.logout()]]
+                    left_action_items:[['menu',lambda x:nav_drawer.set_state('open')]]
+
+            MDScreen:
+                name:'borrowed-book-employee'
+                MDTopAppBar:
+                    title:'Borrowed Books'
+                    
+                    right_action_items: [["volume-high", lambda x: app.play_sound()],['information',lambda x:app.about()],['logout',lambda x:app.logout()]]
+                    left_action_items:[['menu',lambda x:nav_drawer.set_state('open')]]
+
+
+            MDScreen:
+                name:'fines-employee'
+                MDTopAppBar:
+                    title:'Fines'
+                    
+                    right_action_items: [["volume-high", lambda x: app.play_sound()],['information',lambda x:app.about()],['logout',lambda x:app.logout()]]
+                    left_action_items:[['menu',lambda x:nav_drawer.set_state('open')]]
+
+
+        MDNavigationDrawer:
+            id:nav_drawer
+            radius:(0,20,20,0)
+            MDNavigationDrawerMenu:
+                MDNavigationDrawerHeader:
+                    title:'Employee options'
+                    source:'images/book-icon.png'
+                    spacing:'20dp'
+                MDNavigationDrawerDivider:
+                DrawerClickableItem:
+                    text:'HOME'
+                    icon:'home'
+                    selected:1
+                    on_release:screenmanager_employee.current='employee-home'
+                MDNavigationDrawerDivider:
+                MDNavigationDrawerLabel:
+                    text:'USERS'
+                DrawerClickableItem:
+                    text:'SEARCH USER'
+                    icon:'account-search'
+                    on_release:screenmanager_employee.current='search-user-employee'
+                MDNavigationDrawerDivider:
+                MDNavigationDrawerLabel:
+                    text:'BOOKS'
+                DrawerClickableItem:
+                    text:'SEARCH BOOK'
+                    icon:'book-search'
+                    on_release:screenmanager_employee.current='search-book-employee'
+                DrawerClickableItem:
+                    text:'BORROWED BOOKS'
+                    icon:'book-multiple'
+                    on_release:screenmanager_employee.current='borrowed-book-employee'
+                MDNavigationDrawerDivider:
+                MDNavigationDrawerLabel:
+                    text:'FINES'
+                DrawerClickableItem:
+                    text:'FINES STATUS'
+                    icon:'currency-usd'
+                    on_release:screenmanager_employee.current='fines-employee'
+
+<UserScreen>:
+    id:user
+    name:'user'
+    MDNavigationLayout:
+        MDScreenManager:
+            id:screenmanager_user
+            MDScreen:
+                MDBoxLayout:
+                    MDTopAppBar:
+                        title:'USER Page'
+                        
+                        right_action_items: [["volume-high", lambda x: app.play_sound()],['information',lambda x:app.about()],['logout',lambda x:app.logout()]]
+                        left_action_items:[['menu',lambda x:nav_drawer.set_state('open')]]
+
+            MDScreen:
+                name:'reserve-book-user'
+                MDTopAppBar:
+                    title:'RESERVE BOOK'
+
+                    right_action_items: [["volume-high", lambda x: app.play_sound()],['information',lambda x:app.about()],['logout',lambda x:app.logout()]]
+                    left_action_items:[['menu',lambda x:nav_drawer.set_state('open')]]
+
+            MDScreen:
+                name:'reserved-book-user'
+                MDTopAppBar:
+                    title:'RESERVED BOOK'
+
+                    right_action_items: [["volume-high", lambda x: app.play_sound()],['information',lambda x:app.about()],['logout',lambda x:app.logout()]]
+                    left_action_items:[['menu',lambda x:nav_drawer.set_state('open')]]
+            MDScreen:
+                name:'search-book-user'
+                MDTopAppBar:
+                    title:'SEARCH BOOK'
+
+                    right_action_items: [["volume-high", lambda x: app.play_sound()],['information',lambda x:app.about()],['logout',lambda x:app.logout()]]
+                    left_action_items:[['menu',lambda x:nav_drawer.set_state('open')]]
+
+            MDScreen:
+                name:'fine-user'
+                MDTopAppBar:
+                    title:'YOUR FINE STATUS'
+
+                    right_action_items: [["volume-high", lambda x: app.play_sound()],['information',lambda x:app.about()],['logout',lambda x:app.logout()]]
+                    left_action_items:[['menu',lambda x:nav_drawer.set_state('open')]]
+
+            MDScreen:
+                name:'borrowed-book-user'
+                MDTopAppBar:
+                    title:'BORROWED BOOKS'
+
+                    right_action_items: [["volume-high", lambda x: app.play_sound()],['information',lambda x:app.about()],['logout',lambda x:app.logout()]]
+                    left_action_items:[['menu',lambda x:nav_drawer.set_state('open')]]
+
+
+        MDNavigationDrawer:
+            id:nav_drawer
+            radius:(0,20,20,0)
+            MDNavigationDrawerMenu:
+                MDNavigationDrawerHeader:
+                    title:'USER options'
+                    source:'images/book-icon.png'
+                    spacing:'20dp'
+                DrawerClickableItem:
+                    text:'RESERVE BOOK'
+                    icon:'book-clock'
+                    on_release:screenmanager_user.current='reserve-book-user'
+                DrawerClickableItem:
+                    text:'RESERVED BOOKS'
+                    icon:'bookmark-box-multiple'
+                    on_release:screenmanager_user.current='reserved-book-user'
+                DrawerClickableItem:
+                    text:'SEARCH BOOK'
+                    icon:'book-search'
+                    on_release:screenmanager_user.current='search-book-user'
+                DrawerClickableItem:
+                    text:'BORROWED BOOKS'
+                    icon:'book-multiple'
+                    on_release:screenmanager_user.current='borrowed-book-user'
+                MDNavigationDrawerDivider:
+                MDNavigationDrawerLabel:
+                    text:'FINES'
+                DrawerClickableItem:
+                    text:'YOUR FINE STATUS'
+                    icon:'currency-usd'
+                    on_release:screenmanager_user.current='fine-user'
+
+<DrawerClickableItem@MDNavigationDrawerItem>
+    focus_color: "#e7e4c0"
+    text_color: "#4a4939"
+    icon_color: "#4a4939"
+    ripple_color: "#c5bdd2"
+    selected_color: "#0c6c4d"
+
+<DrawerLabelItem@MDNavigationDrawerItem>
+    text_color: "#4a4939"
+    icon_color: "#4a4939"
+    focus_behavior: False
+    selected_color: "#4a4939"
+    _no_ripple_effect: True
+
+<AdminScreen>:
+    id:admin
+    name:'admin'
+    MDNavigationLayout:
+        MDScreenManager:
+            id:screenmanager_admin
+            MDScreen:
+                MDBoxLayout:
+                    MDTopAppBar:
+                        title:"Admin Page"
+                        right_action_items: [["volume-high", lambda x: app.play_sound()],['information',lambda x:app.about()],['logout',lambda x:app.logout()]]
+                        left_action_items:[['menu',lambda x:nav_drawer.set_state('open')]]
+
+
+            MDScreen:
+                name:'search-user-admin'
+                MDTopAppBar:
+                    title:'SEARCH USER'
+
+                    right_action_items: [["volume-high", lambda x: app.play_sound()],['information',lambda x:app.about()],['logout',lambda x:app.logout()]]
+                    left_action_items:[['menu',lambda x:nav_drawer.set_state('open')]]
+            MDScreen:
+                name:'add-user-admin'
+                MDTopAppBar:
+                    title:'ADD USER'
+
+                    right_action_items: [["volume-high", lambda x: app.play_sound()],['information',lambda x:app.about()],['logout',lambda x:app.logout()]]
+                    left_action_items:[['menu',lambda x:nav_drawer.set_state('open')]]
+            MDScreen:
+                name:'edit-user-admin'
+                MDTopAppBar:
+                    title:'EDIT USER'
+
+                    right_action_items: [["volume-high", lambda x: app.play_sound()],['information',lambda x:app.about()],['logout',lambda x:app.logout()]]
+                    left_action_items:[['menu',lambda x:nav_drawer.set_state('open')]]
+            MDScreen:
+                name:'remove-user-admin'
+                MDTopAppBar:
+                    title:'REMOVE USER'
+
+                    right_action_items: [["volume-high", lambda x: app.play_sound()],['information',lambda x:app.about()],['logout',lambda x:app.logout()]]
+                    left_action_items:[['menu',lambda x:nav_drawer.set_state('open')]]
+
+            MDScreen:
+                name:'reserved-book-admin'
+                MDTopAppBar:
+                    title:'RESERVED BOOK'
+
+                    right_action_items: [["volume-high", lambda x: app.play_sound()],['information',lambda x:app.about()],['logout',lambda x:app.logout()]]
+                    left_action_items:[['menu',lambda x:nav_drawer.set_state('open')]]
+
+            MDScreen:
+                name:'search-book-admin'
+                MDTopAppBar:
+                    title:'SEARCH BOOK'
+
+                    right_action_items: [["volume-high", lambda x: app.play_sound()],['information',lambda x:app.about()],['logout',lambda x:app.logout()]]
+                    left_action_items:[['menu',lambda x:nav_drawer.set_state('open')]]
+            MDScreen:
+                name:'add-book-admin'
+                MDTopAppBar:
+                    title:'ADD BOOK'
+
+                    right_action_items: [["volume-high", lambda x: app.play_sound()],['information',lambda x:app.about()],['logout',lambda x:app.logout()]]
+                    left_action_items:[['menu',lambda x:nav_drawer.set_state('open')]]
+            MDScreen:
+                name:'edit-book-admin'
+                MDTopAppBar:
+                    title:'EDIT BOOK'
+
+                    right_action_items: [["volume-high", lambda x: app.play_sound()],['information',lambda x:app.about()],['logout',lambda x:app.logout()]]
+                    left_action_items:[['menu',lambda x:nav_drawer.set_state('open')]]
+            MDScreen:
+                name:'remove-book-admin'
+                MDTopAppBar:
+                    title:'REMOVE BOOK'
+
+                    right_action_items: [["volume-high", lambda x: app.play_sound()],['information',lambda x:app.about()],['logout',lambda x:app.logout()]]
+                    left_action_items:[['menu',lambda x:nav_drawer.set_state('open')]]
+
+            MDScreen:
+                name:'borrowed-book-admin'
+                MDTopAppBar:
+                    title:'Borrowed BOOKS'
+
+                    right_action_items: [["volume-high", lambda x: app.play_sound()],['information',lambda x:app.about()],['logout',lambda x:app.logout()]]
+                    left_action_items:[['menu',lambda x:nav_drawer.set_state('open')]]
+
+
+            MDScreen:
+                name:'fines-admin'
+                MDTopAppBar:
+                    title:'FINES'
+
+                    right_action_items: [["volume-high", lambda x: app.play_sound()],['information',lambda x:app.about()],['logout',lambda x:app.logout()]]
+                    left_action_items:[['menu',lambda x:nav_drawer.set_state('open')]]
+
+
+        MDNavigationDrawer:
+            id:nav_drawer
+
+            radius:(0,20,20,0)
+            MDNavigationDrawerMenu:
+                MDNavigationDrawerHeader:
+                    title:"Admin Options"
+                    source:'images/book-icon.png'
+                    spacing:'20dp'
+                MDNavigationDrawerDivider:
+                MDNavigationDrawerLabel:
+                    text:'USERS'
+                DrawerClickableItem:
+                    text:'ADD USER'
+                    icon:'account-plus'
+                    on_release:screenmanager_admin.current='add-user-admin'
+                DrawerClickableItem:
+                    text:'REMOVE USER'
+                    icon:'account-remove'
+                    on_release:screenmanager_admin.current='remove-user-admin'
+                DrawerClickableItem:
+                    text:'EDIT USER'
+                    icon:'account-edit'
+                    on_release:screenmanager_admin.current='edit-user-admin'
+                DrawerClickableItem:
+                    text:'SEARCH USER'
+                    icon:'account-search'
+                    on_release:screenmanager_admin.current='search-user-admin'
+                MDNavigationDrawerDivider:
+                MDNavigationDrawerLabel:
+                    text:'BOOKS'
+                DrawerClickableItem:
+                    text:'ADD BOOK'
+                    icon:'book-plus'
+                    on_release:screenmanager_admin.current='add-book-admin'
+                DrawerClickableItem:
+                    text:'EDIT BOOK'
+                    icon:'book-edit'
+                    on_release:screenmanager_admin.current='edit-book-admin'
+                DrawerClickableItem:
+                    text:'REMOVE BOOK'
+                    icon:'book-remove'
+                    on_release:screenmanager_admin.current='remove-book-admin'
+                DrawerClickableItem:
+                    text:'SEARCH BOOK'
+                    icon:'book-search'
+                    on_release:screenmanager_admin.current='search-book-admin'
+                DrawerClickableItem:
+                    text:'RESERVED BOOKS'
+                    icon:'book-clock'
+                    on_release:screenmanager_admin.current='reserved-book-admin'
+                DrawerClickableItem:
+                    text:'BORROWED BOOKS'
+                    icon:'book-multiple'
+                    on_release:screenmanager_admin.current='borrowed-book-admin'
+                MDNavigationDrawerDivider:
+                MDNavigationDrawerLabel:
+                    text:'FINES'
+                DrawerClickableItem:
+                    text:'FINES STATUS'
+                    icon:'currency-usd'
+                    on_release:screenmanager_admin.current='fines-admin'
+
+
+<PasswordTextField>
+    size_hint_y:None
+    height:password.height
+    MDTextField:
+        id:password
+        password:1
+        font_size:18
+        icon_left: "key-variant"
+        hint_text:'Password'
+
+
+    MDIconButton:
+        id:eye_off
+        icon:'eye-off'
+        pos_hint: {"center_y": .5}
+        pos:password.width-self.width+dp(8),0
+        theme_text_color: "Hint"
+        on_release:root.show_password()
+
+<LoginScreen>:
+    id:login
+    name:'login'
+    MDScreen:
+        FitImage:
+            id:background
+            source:"images/light.jpeg"
+
+        MDBoxLayout:
+            orientation:'vertical'
+            MDTopAppBar:
+                title:'Library Login'
+                right_action_items: [["volume-high", lambda x: app.play_sound()],['information',lambda x:app.about()]]
+
+            MDTabs:
+                id:login
+                Tab:
+                    icon:'account-cowboy-hat'
+                    title:'STAFF'
+                    MDCard:
+                        id:card
+                        radius:[20]
+                        size_hint:None,None
+                        width:'400dp'
+                        height:'400dp'
+                        orientation:'vertical'
+                        pos_hint:{'center_x':0.5,'center_y':0.5}
+                        spacing:'20dp'
+                        padding:'30dp'
+                        MDLabel:
+                            text:"STAFF"
+                            bold:True
+                            font_size:'32sp'
+                            text_size:card.width,self.texture_size[1]
+                            halign:'center'
+                            size_hint_y:None
+                            height:self.texture_size[1]
+
+                        MDTextField:
+                            hint_text:'Username'
+                            icon_left:'account'
+                            id:username_staff
+
+                        PasswordTextField:
+                            id:staff_password
+
+                        Label:
+                        MDRaisedButton:
+                            size_hint_x:1
+                            text:'Login'
+                            font_size:'20sp'
+                            md_bg_color:'green'
+
+                            on_release:
+                                root.next_page()
+
+                        MDRaisedButton:
+                            size_hint_x:1
+                            text:'Exit'
+                            font_size:'20sp'
+                            theme_text_color:'Custom'
+                            md_bg_color:'red'
+                            text_color:'white'
+                            on_release:app.stop()
+
+
+                Tab:
+                    icon:'account-group'
+                    title:'USER'
+                    MDCard:
+                        id:card
+                        size_hint:None,None
+                        width:'400dp'
+                        height:'400dp'
+                        orientation:'vertical'
+                        pos_hint:{'center_x':0.5,'center_y':0.5}
+                        spacing:'20dp'
+                        padding:'30dp'
+                        radius:[20]
+                        MDLabel:
+                            text:"USER"
+                            bold:True
+                            font_size:'32sp'
+                            text_size:card.width,self.texture_size[1]
+                            halign:'center'
+                            size_hint_y:None
+                            height:self.texture_size[1]
+
+                        MDTextField:
+                            hint_text:'Username'
+                            icon_left:'account'
+                            id:username_user
+
+                        PasswordTextField:
+                            id:user_password
+                        Label:
+                        MDRaisedButton:
+                            size_hint_x:1
+                            text:'Login'
+                            font_size:'20sp'
+                            md_bg_color:'green'
+
+                            on_release:
+                                root.next_page()
+
+                        MDRaisedButton:
+                            size_hint_x:1
+                            text:'Exit'
+                            font_size:'20sp'
+                            theme_text_color:'Custom'
+                            md_bg_color:'red'
+                            text_color:'white'
+                            on_release:app.stop()
+
+<DialogContent>
+    orientation:'horizontal'
+    size_hint_y: None
+    height: "120dp"
+    spacing:'20dp'
+    Label:
+        size_hint_x:None
+        width:'120dp'
+        canvas:
+            Color:
+                rgb: 1, 1, 1
+            Ellipse:
+                pos: self.pos
+                size: self.size
+                source: 'images/me.jpg'
+                angle_start: 0
+                angle_end: 360
+    MDLabel:
+        text:'Developer: Mohammad Ali Bazzazi'
+        bold:1
+
