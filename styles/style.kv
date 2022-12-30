@@ -218,14 +218,69 @@ WindowManager:
 
             MDScreen:
                 name:'search-user-admin'
-                MDTopAppBar:
-                    title:'SEARCH USER'
+                MDBoxLayout:
+                    spacing:'15dp'
+                    orientation:'vertical'
+                    MDTopAppBar:
+                        title:'SEARCH USER'
 
-                    right_action_items: [["volume-high", lambda x: app.play_sound()],['information',lambda x:app.about()],['logout',lambda x:app.logout()]]
-                    left_action_items:[['menu',lambda x:nav_drawer.set_state('open')]]
+                        right_action_items: [["volume-high", lambda x: app.play_sound()],['information',lambda x:app.about()],['logout',lambda x:app.logout()]]
+                        left_action_items:[['menu',lambda x:nav_drawer.set_state('open')]]
+                    MDBoxLayout:
+                        size_hint_y:None
+                        height:'200dp'
+                        padding:'20dp'
+                        spacing:'30dp'
+                        orientation:"vertical"
+                        halign:'center'
+                        MDBoxLayout:
+                            spacing:'15dp'
+                            MDTextField:
+                                id:search_by_name   
+                                hint_text: "Name"
+                                mode: "round"
+                                max_text_length: 30
+                                helper_text: "Search by name"
+                                on_text:root.suggestion(self)
+                            MDTextField:
+                                id:search_by_id
+                                hint_text: "User ID"
+                                mode: "round"
+                                max_text_length: 30
+                                helper_text: "Search by User ID"
+                                input_filter:'int'
+                                on_text:root.suggestion(self)
+                        MDBoxLayout:
+                            spacing:'30dp'
+                            padding:'15dp'
+                            MDFillRoundFlatIconButton:
+                                text:'Search'
+                                icon:'magnify'
+                                on_release:root.search_user()
+
+                            MDFillRoundFlatIconButton:
+                                text:'Clear'
+                                icon:'eraser'
+                                on_release:
+                                    search_by_id.text=""
+                                    search_by_name.text=""
+                                    result_search_user.clear_widgets()
+                                
+                    MDScrollView:
+                        canvas.before:
+                            Color:
+                                rgba: 0,0,0,1
+                            Line:
+                                width: 3
+                                rectangle: self.x, self.y, self.width, self.height
+
+                        MDList:
+                            id: result_search_user
+
+
             MDScreen:
                 name:'add-user-admin'
-                MDTopAppBar:
+                MDTopAppBar:    
                     title:'ADD USER'
 
                     right_action_items: [["volume-high", lambda x: app.play_sound()],['information',lambda x:app.about()],['logout',lambda x:app.logout()]]
@@ -246,9 +301,9 @@ WindowManager:
                     left_action_items:[['menu',lambda x:nav_drawer.set_state('open')]]
 
             MDScreen:
-                name:'reserved-book-admin'
+                name:'borrowed-book-admin'
                 MDTopAppBar:
-                    title:'RESERVED BOOK'
+                    title:'BORROWED BOOK'
 
                     right_action_items: [["volume-high", lambda x: app.play_sound()],['information',lambda x:app.about()],['logout',lambda x:app.logout()]]
                     left_action_items:[['menu',lambda x:nav_drawer.set_state('open')]]
@@ -281,15 +336,6 @@ WindowManager:
 
                     right_action_items: [["volume-high", lambda x: app.play_sound()],['information',lambda x:app.about()],['logout',lambda x:app.logout()]]
                     left_action_items:[['menu',lambda x:nav_drawer.set_state('open')]]
-
-            MDScreen:
-                name:'borrowed-book-admin'
-                MDTopAppBar:
-                    title:'Borrowed BOOKS'
-
-                    right_action_items: [["volume-high", lambda x: app.play_sound()],['information',lambda x:app.about()],['logout',lambda x:app.logout()]]
-                    left_action_items:[['menu',lambda x:nav_drawer.set_state('open')]]
-
 
             MDScreen:
                 name:'fines-admin'
@@ -347,10 +393,6 @@ WindowManager:
                     text:'SEARCH BOOK'
                     icon:'book-search'
                     on_release:screenmanager_admin.current='search-book-admin'
-                DrawerClickableItem:
-                    text:'RESERVED BOOKS'
-                    icon:'book-clock'
-                    on_release:screenmanager_admin.current='reserved-book-admin'
                 DrawerClickableItem:
                     text:'BORROWED BOOKS'
                     icon:'book-multiple'

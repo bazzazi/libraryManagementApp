@@ -13,8 +13,9 @@ from kivymd.uix.screenmanager import MDScreenManager
 from kivymd.uix.snackbar import Snackbar
 from kivymd.uix.tab import MDTabsBase
 import sqlite3
-
-loginer = []
+from kivymd.uix.menu import MDDropdownMenu
+from kivy.metrics import dp
+from kivymd.uix.list import ThreeLineAvatarIconListItem,IconRightWidget
 
 
 class Tab(MDFloatLayout, MDTabsBase):
@@ -99,6 +100,11 @@ class EmployeeScreen(MDScreen):
 
 
 class AdminScreen(MDScreen):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.dropdown=MDDropdownMenu()
+
     def get_loginer(self):
         global loginer
         info = f"""
@@ -125,6 +131,117 @@ class AdminScreen(MDScreen):
             MDFlatButton(text='DISMISS', on_release=snack.dismiss, theme_text_color="Custom", text_color="orange")]
         snack.open()
 
+    def search_user(self):
+        result_list=self.ids.result_search_user
+        result_list.clear_widgets()
+        name=self.ids.search_by_name.text.strip()
+        id=self.ids.search_by_id.text.strip()
+        conn=sqlite3.connect("library.db")
+        c=conn.cursor()
+        if name and id:
+            sql=f"""
+                SELECT * FROM user
+                WHERE 
+                user_id LIKE "%{id}%" AND
+                name LIKE "%{name}%" 
+            """
+        elif name:
+            sql=f"""
+                SELECT * FROM user
+                WHERE 
+                name LIKE "%{name}%" 
+            """
+        elif id:
+            sql=f"""
+                SELECT * FROM user
+                WHERE 
+                user_id LIKE "%{id}%" 
+            """
+        else:
+            return
+        c.execute(sql)
+        while result:=c.fetchone():
+            result_list.add_widget(
+                ThreeLineAvatarIconListItem(
+                    IconRightWidget(
+                        icon="account"
+                    ),
+                    text=f"ID: {result[0]} - NAME: {result[1]} - PHONE: {result[4]}",
+                    secondary_text= f"FINE: {result[5]} - EXPIRE_DATE: {result[6]}",
+                    tertiary_text= f"ADDRESS: {result[2]}",
+                )
+            )
+        c.close()
+
+    def suggestion(self,obj):
+        items=list()
+        self.dropdown.dismiss()
+        name=self.ids.search_by_name.text.strip()
+        id=self.ids.search_by_id.text.strip()
+
+        conn=sqlite3.connect("library.db")
+        c=conn.cursor()
+        if name and id:
+            sql=f"""
+                SELECT * FROM user
+                WHERE 
+                user_id LIKE "%{id}%" AND
+                name LIKE "%{name}%" 
+            """
+        elif name:
+            sql=f"""
+                SELECT * FROM user
+                WHERE 
+                name LIKE "%{name}%" 
+            """
+        elif id:
+            sql=f"""
+                SELECT * FROM user
+                WHERE 
+                user_id LIKE "%{id}%" 
+            """
+        else:
+            return
+        c.execute(sql)
+        i=0
+        while 1:
+            result=c.fetchone()
+            if result is None or i==3:
+                break
+            items.append(                
+                {
+                "viewclass": "OneLineListItem",
+                "height": dp(56),
+                "text": f"NAME: {result[1]} -- ID: {result[0]}",
+                "on_release":lambda x=result: self.set_values(x)
+                })
+            i+=1
+        if items:
+            self.dropdown.items=items
+            self.dropdown.caller=obj
+            self.dropdown.width_mult=5
+            self.dropdown.position='top'
+            self.dropdown.open()
+        else:
+            self.dropdown.dismiss()
+        conn.close()
+
+    def set_values(self,result):
+        result_list=self.ids.result_search_user
+        result_list.clear_widgets()
+        self.ids.search_by_name.text=str(result[1])
+        self.ids.search_by_id.text=str(result[0])
+        self.dropdown.dismiss()
+        result_list.add_widget(
+            ThreeLineAvatarIconListItem(
+                IconRightWidget(
+                    icon="account"
+                ),
+                text=f"ID: {result[0]} - NAME: {result[1]} - PHONE: {result[4]}",
+                secondary_text= f"FINE: {result[5]} - EXPIRE_DATE: {result[6]}",
+                tertiary_text= f"ADDRESS: {result[2]}",
+            )
+        )
 
 class LoginScreen(MDScreen):
     login_type = ""
