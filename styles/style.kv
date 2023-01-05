@@ -1,11 +1,87 @@
 WindowManager:
     LoginScreen:
     AdminScreen:
-    UserScreen:
     EmployeeScreen:
+    UserScreen:
 
 <hint_button@MDTooltip+MDIconButton>
 
+<Show_all_borrowed_books>
+    size_hint_y:None
+    height:'250dp'
+    MDList:
+        size_hint_y:None
+        height:self.minimum_height
+        id:result_list
+
+
+<User_edit_form>
+    size_hint_y: None
+    height: "250dp"
+    do_scroll_x: False
+    GridLayout:
+        cols:1
+        spacing: "12dp"
+        size_hint_y: None
+        height: self.minimum_height
+        MDTextField:
+            hint_text: "NEW NAME"
+            id:edit_user_name
+
+        MDTextField:
+            hint_text: "NEW ADDRESS"
+            id:edit_user_address
+            max_text_length:100
+
+        MDTextField:
+            input_filter:'float'
+            hint_text: "NEW FINE"
+            id:edit_user_fine
+
+        MDTextField:        
+            input_filter:'int'
+            hint_text: "NEW PHONE NUMBER"
+            id:edit_phone_number
+            max_text_length:11
+
+        MDTextField:        
+            hint_text: "NEW PASSWORD"
+            id:edit_user_password
+
+<Book_edit_form>
+    size_hint_y: None
+    height: "250dp"
+    do_scroll_x: False
+    GridLayout:
+        cols:1
+        spacing: "12dp"
+        size_hint_y: None
+        height: self.minimum_height
+        MDTextField:
+            hint_text: "NEW TITLE"
+            id:edit_book_title
+            max_text_length:100
+
+        MDTextField:
+            hint_text: "NEW PUBLISHER"
+            id:edit_book_publisher
+
+        MDTextField:
+            input_filter:'float'
+            hint_text: "NEW PRICE"
+            id:edit_book_price
+
+        MDTextField:        
+            hint_text: "NEW AUTHOR"
+            id:edit_book_author
+            max_text_length:30
+
+        MDTextField:        
+            hint_text: "NEW CATEGORY"
+            id:edit_book_category
+            on_text:root.category_suggestion(self)
+
+    
 <EmployeeScreen>:
     id:employee
     name:'employee'
@@ -14,52 +90,213 @@ WindowManager:
             id:screenmanager_employee
             MDScreen:
                 name:'employee-home'
-                MDTopAppBar:
-                    title:'Employee Home'
-                    
-                    right_action_items: [["volume-high", lambda x: app.play_sound()],['information',lambda x:app.about()],['logout',lambda x:app.logout()]]
-                    left_action_items:[['menu',lambda x:nav_drawer.set_state('open')]]
-
-            MDScreen:
-                name:'search-book-employee'
+                FitImage:
+                    id:background
+                    source:"images/light.jpeg"
                 MDTopAppBar:
                     title:'Search Book'
                     
                     right_action_items: [["volume-high", lambda x: app.play_sound()],['information',lambda x:app.about()],['logout',lambda x:app.logout()]]
                     left_action_items:[['menu',lambda x:nav_drawer.set_state('open')]]
 
-            MDScreen:
-                name:'search-user-employee'
-                MDTopAppBar:
-                    title:'Search User'
-                    
-                    right_action_items: [["volume-high", lambda x: app.play_sound()],['information',lambda x:app.about()],['logout',lambda x:app.logout()]]
-                    left_action_items:[['menu',lambda x:nav_drawer.set_state('open')]]
 
             MDScreen:
-                name:'reserved-book-employee'
-                MDTopAppBar:
-                    title:'Reserved Book'
-                    
-                    right_action_items: [["volume-high", lambda x: app.play_sound()],['information',lambda x:app.about()],['logout',lambda x:app.logout()]]
-                    left_action_items:[['menu',lambda x:nav_drawer.set_state('open')]]
+                name:'search-book-employee'
+                MDBoxLayout:
+                    spacing:'15dp'
+                    orientation:'vertical'
+                    MDTopAppBar:
+                        title:'SEARCH BOOK'
+                        right_action_items: [["volume-high", lambda x: app.play_sound()],['information',lambda x:app.about()],['logout',lambda x:app.logout()]]
+                        left_action_items:[['menu',lambda x:nav_drawer.set_state('open')]]
+                    MDBoxLayout:
+                        padding:'20dp'
+                        spacing:'30dp'
+                        orientation:"vertical"
+                        halign:'center'
+                        MDBoxLayout:
+                            orientation:'vertical'
+                            spacing:'15dp'
+                            MDTextField:
+                                id:search_book_by_title 
+                                hint_text: "Title"
+                                mode: "fill"
+                                max_text_length: 100
+                                helper_text: "Search by Title"
+                                on_text:root.book_suggestion(self)
+                            MDTextField:
+                                id:search_book_by_id
+                                hint_text: "Book ID"
+                                mode: "fill"
+                                max_text_length: 30
+                                helper_text: "Search by Book ID"
+                                input_filter:'int'
+                                on_text:root.book_suggestion(self)
+                        MDBoxLayout:
+                            size_hint_y:.5
+                            spacing:'30dp'
+                            MDFillRoundFlatIconButton:
+                                text:'Search'
+                                icon:'magnify'
+                                on_release:root.search_book()
+
+                            MDFillRoundFlatIconButton:
+                                text:'Clear'
+                                icon:'eraser'
+                                on_release:
+                                    search_book_by_id.text=""
+                                    search_book_by_title.text=""
+                                    result_search_book.clear_widgets()
+                                
+                    MDScrollView:
+                        canvas.before:
+                            Color:
+                                rgba: 0,0,0,1
+                            Line:
+                                width: 3
+                                rectangle: self.x, self.y, self.width, self.height
+
+                        MDList:
+                            id: result_search_book
+
+
+            MDScreen:
+                name:'search-user-employee'
+                MDBoxLayout:
+                    spacing:'15dp'
+                    orientation:'vertical'
+                    MDTopAppBar:
+                        title:'SEARCH USER'
+                        right_action_items: [["volume-high", lambda x: app.play_sound()],['information',lambda x:app.about()],['logout',lambda x:app.logout()]]
+                        left_action_items:[['menu',lambda x:nav_drawer.set_state('open')]]
+                    MDBoxLayout:
+                        padding:'20dp'
+                        spacing:'30dp'
+                        orientation:"vertical"
+                        halign:'center'
+                        MDBoxLayout:
+                            orientation:'vertical'
+                            spacing:'15dp'
+                            MDTextField:
+                                id:search_by_name   
+                                hint_text: "Name"
+                                mode: "fill"
+                                max_text_length: 30
+                                helper_text: "Search by name"
+                                on_text:root.user_suggestion(self)
+                            MDTextField:
+                                id:search_by_id
+                                hint_text: "User ID"
+                                mode: "fill"
+                                max_text_length: 30
+                                helper_text: "Search by User ID"
+                                input_filter:'int'
+                                on_text:root.user_suggestion(self)
+                        MDBoxLayout:
+                            size_hint_y:.5
+                            spacing:'30dp'
+                            MDFillRoundFlatIconButton:
+                                text:'Search'
+                                icon:'magnify'
+                                on_release:root.search_user()
+
+                            MDFillRoundFlatIconButton:
+                                text:'Clear'
+                                icon:'eraser'
+                                on_release:
+                                    search_by_id.text=""
+                                    search_by_name.text=""
+                                    result_search_user.clear_widgets()
+                                
+                    MDScrollView:
+                        canvas.before:
+                            Color:
+                                rgba: 0,0,0,1
+                            Line:
+                                width: 3
+                                rectangle: self.x, self.y, self.width, self.height
+
+                        MDList:
+                            id: result_search_user
+
 
             MDScreen:
                 name:'borrowed-book-employee'
-                MDTopAppBar:
-                    title:'Borrowed Books'
-                    
-                    right_action_items: [["volume-high", lambda x: app.play_sound()],['information',lambda x:app.about()],['logout',lambda x:app.logout()]]
-                    left_action_items:[['menu',lambda x:nav_drawer.set_state('open')]]
+                MDBoxLayout:
+                    spacing:'15dp'
+                    orientation:'vertical'
+                    MDTopAppBar:
+                        title:'BORROWED BOOK'
+                        right_action_items: [["volume-high", lambda x: app.play_sound()],['information',lambda x:app.about()],['logout',lambda x:app.logout()]]
+                        left_action_items:[['menu',lambda x:nav_drawer.set_state('open')]]
+                    MDBoxLayout:
+                        padding:'20dp'
+                        spacing:'30dp'
+                        orientation:"vertical"
+                        halign:'center'
+                        MDBoxLayout:
+                            orientation:'vertical'
+                            spacing:'15dp'
+                            MDTextField:
+                                id:search_by_user_name 
+                                hint_text: "USER NAME"
+                                mode: "fill"
+                                max_text_length: 30
+                                helper_text: "Search by NAME"
+                                on_text:root.user_suggestion(self)
+                            MDTextField:
+                                id:search_by_user_id   
+                                hint_text: "USER ID"
+                                helper_text_mode:'on_error'
+                                mode: "fill"
+                                max_text_length: 30
+                                helper_text: "Search by ID"
+                                input_filter:'int'
+                                on_text:root.user_suggestion(self)
+                            MDTextField:
+                                id:search_by_book_title
+                                helper_text: "Search by Book Title"
+                                hint_text: "BOOK TITLE"
+                                mode: "fill"
+                                max_text_length: 100
+                                on_text:root.book_suggestion(self)
+                            MDTextField:
+                                id:search_by_book_id
+                                helper_text: "Search by Book ID"
+                                hint_text: "BOOK ID"
+                                mode: "fill"
+                                helper_text_mode:'on_error'
+                                max_text_length: 30
+                                input_filter:'int'
+                                on_text:root.book_suggestion(self)
+                            MDBoxLayout:
+                                spacing:'15dp'
+                                MDFillRoundFlatIconButton:
+                                    text:'Borrow'
+                                    icon:'plus'
+                                    on_release:root.borrow_book()
 
+                                MDFillRoundFlatIconButton:
+                                    text:'Clear'
+                                    icon:'eraser'
+                                    on_release:
+                                        search_by_book_id.text=""
+                                        search_by_user_id.text=""
+                                    
+                                        result_borrowed_book.clear_widgets()
+                        MDScrollView:
+                            size_hint_y:None
+                            height:'150dp'
+                            canvas.before:
+                                Color:
+                                    rgba: 0,0,0,1
+                                Line:
+                                    width: 3
+                                    rectangle: self.x, self.y, self.width, self.height
 
-            MDScreen:
-                name:'fines-employee'
-                MDTopAppBar:
-                    title:'Fines'
-                    
-                    right_action_items: [["volume-high", lambda x: app.play_sound()],['information',lambda x:app.about()],['logout',lambda x:app.logout()]]
-                    left_action_items:[['menu',lambda x:nav_drawer.set_state('open')]]
+                            MDList:
+                                id: result_borrowed_book
+
 
 
         MDNavigationDrawer:
@@ -75,118 +312,34 @@ WindowManager:
                     text:'HOME'
                     icon:'home'
                     selected:1
-                    on_release:screenmanager_employee.current='employee-home'
+                    on_release:
+                        screenmanager_employee.current='employee-home'
+                        nav_drawer.set_state('close')
                 MDNavigationDrawerDivider:
                 MDNavigationDrawerLabel:
                     text:'USERS'
                 DrawerClickableItem:
                     text:'SEARCH USER'
                     icon:'account-search'
-                    on_release:screenmanager_employee.current='search-user-employee'
+                    on_release:
+                        screenmanager_employee.current='search-user-employee'
+                        nav_drawer.set_state('close')
                 MDNavigationDrawerDivider:
                 MDNavigationDrawerLabel:
                     text:'BOOKS'
                 DrawerClickableItem:
                     text:'SEARCH BOOK'
                     icon:'book-search'
-                    on_release:screenmanager_employee.current='search-book-employee'
+                    on_release:
+                        screenmanager_employee.current='search-book-employee'
+                        nav_drawer.set_state('close')
                 DrawerClickableItem:
                     text:'BORROWED BOOKS'
                     icon:'book-multiple'
-                    on_release:screenmanager_employee.current='borrowed-book-employee'
-                MDNavigationDrawerDivider:
-                MDNavigationDrawerLabel:
-                    text:'FINES'
-                DrawerClickableItem:
-                    text:'FINES STATUS'
-                    icon:'currency-usd'
-                    on_release:screenmanager_employee.current='fines-employee'
+                    on_release:
+                        screenmanager_employee.current='borrowed-book-employee'
+                        nav_drawer.set_state('close')
 
-<UserScreen>:
-    id:user
-    name:'user'
-    MDNavigationLayout:
-        MDScreenManager:
-            id:screenmanager_user
-            MDScreen:
-                MDBoxLayout:
-                    MDTopAppBar:
-                        title:'USER Page'
-                        
-                        right_action_items: [["volume-high", lambda x: app.play_sound()],['information',lambda x:app.about()],['logout',lambda x:app.logout()]]
-                        left_action_items:[['menu',lambda x:nav_drawer.set_state('open')]]
-
-            MDScreen:
-                name:'reserve-book-user'
-                MDTopAppBar:
-                    title:'RESERVE BOOK'
-
-                    right_action_items: [["volume-high", lambda x: app.play_sound()],['information',lambda x:app.about()],['logout',lambda x:app.logout()]]
-                    left_action_items:[['menu',lambda x:nav_drawer.set_state('open')]]
-
-            MDScreen:
-                name:'reserved-book-user'
-                MDTopAppBar:
-                    title:'RESERVED BOOK'
-
-                    right_action_items: [["volume-high", lambda x: app.play_sound()],['information',lambda x:app.about()],['logout',lambda x:app.logout()]]
-                    left_action_items:[['menu',lambda x:nav_drawer.set_state('open')]]
-            MDScreen:
-                name:'search-book-user'
-                MDTopAppBar:
-                    title:'SEARCH BOOK'
-
-                    right_action_items: [["volume-high", lambda x: app.play_sound()],['information',lambda x:app.about()],['logout',lambda x:app.logout()]]
-                    left_action_items:[['menu',lambda x:nav_drawer.set_state('open')]]
-
-            MDScreen:
-                name:'fine-user'
-                MDTopAppBar:
-                    title:'YOUR FINE STATUS'
-
-                    right_action_items: [["volume-high", lambda x: app.play_sound()],['information',lambda x:app.about()],['logout',lambda x:app.logout()]]
-                    left_action_items:[['menu',lambda x:nav_drawer.set_state('open')]]
-
-            MDScreen:
-                name:'borrowed-book-user'
-                MDTopAppBar:
-                    title:'BORROWED BOOKS'
-
-                    right_action_items: [["volume-high", lambda x: app.play_sound()],['information',lambda x:app.about()],['logout',lambda x:app.logout()]]
-                    left_action_items:[['menu',lambda x:nav_drawer.set_state('open')]]
-
-
-        MDNavigationDrawer:
-            id:nav_drawer
-            radius:(0,20,20,0)
-            MDNavigationDrawerMenu:
-                MDNavigationDrawerHeader:
-                    title:'USER options'
-                    source:'images/book-icon.png'
-                    spacing:'20dp'
-                DrawerClickableItem:
-                    text:'RESERVE BOOK'
-                    icon:'book-clock'
-                    on_release:screenmanager_user.current='reserve-book-user'
-                DrawerClickableItem:
-                    text:'RESERVED BOOKS'
-                    icon:'bookmark-box-multiple'
-                    on_release:screenmanager_user.current='reserved-book-user'
-                DrawerClickableItem:
-                    text:'SEARCH BOOK'
-                    icon:'book-search'
-                    on_release:screenmanager_user.current='search-book-user'
-                DrawerClickableItem:
-                    text:'BORROWED BOOKS'
-                    icon:'book-multiple'
-                    on_release:screenmanager_user.current='borrowed-book-user'
-                MDNavigationDrawerDivider:
-                MDNavigationDrawerLabel:
-                    text:'FINES'
-                DrawerClickableItem:
-                    text:'YOUR FINE STATUS'
-                    icon:'currency-usd'
-                    on_release:screenmanager_user.current='fine-user'
 
 <DrawerClickableItem@MDNavigationDrawerItem>
     focus_color: "#e7e4c0"
@@ -209,6 +362,9 @@ WindowManager:
         MDScreenManager:
             id:screenmanager_admin
             MDScreen:
+                FitImage:
+                    id:background
+                    source:"images/light.jpeg"
                 MDBoxLayout:
                     MDTopAppBar:
                         title:"Admin Page"
@@ -223,36 +379,34 @@ WindowManager:
                     orientation:'vertical'
                     MDTopAppBar:
                         title:'SEARCH USER'
-
                         right_action_items: [["volume-high", lambda x: app.play_sound()],['information',lambda x:app.about()],['logout',lambda x:app.logout()]]
                         left_action_items:[['menu',lambda x:nav_drawer.set_state('open')]]
                     MDBoxLayout:
-                        size_hint_y:None
-                        height:'200dp'
                         padding:'20dp'
                         spacing:'30dp'
                         orientation:"vertical"
                         halign:'center'
                         MDBoxLayout:
+                            orientation:'vertical'
                             spacing:'15dp'
                             MDTextField:
                                 id:search_by_name   
                                 hint_text: "Name"
-                                mode: "round"
+                                mode: "fill"
                                 max_text_length: 30
                                 helper_text: "Search by name"
-                                on_text:root.suggestion(self)
+                                on_text:root.user_suggestion(self)
                             MDTextField:
                                 id:search_by_id
                                 hint_text: "User ID"
-                                mode: "round"
+                                mode: "fill"
                                 max_text_length: 30
                                 helper_text: "Search by User ID"
                                 input_filter:'int'
-                                on_text:root.suggestion(self)
+                                on_text:root.user_suggestion(self)
                         MDBoxLayout:
+                            size_hint_y:.5
                             spacing:'30dp'
-                            padding:'15dp'
                             MDFillRoundFlatIconButton:
                                 text:'Search'
                                 icon:'magnify'
@@ -280,75 +434,452 @@ WindowManager:
 
             MDScreen:
                 name:'add-user-admin'
-                MDTopAppBar:    
-                    title:'ADD USER'
+                MDBoxLayout:
+                    spacing:'15dp'
+                    orientation:'vertical'
+                    MDTopAppBar:
+                        title:'ADD USER'
+                        right_action_items: [["volume-high", lambda x: app.play_sound()],['information',lambda x:app.about()],['logout',lambda x:app.logout()]]
+                        left_action_items:[['menu',lambda x:nav_drawer.set_state('open')]]
+                    MDBoxLayout:
+                        padding:'20dp'
+                        spacing:'10dp'
+                        orientation:"vertical"
+                        halign:'center'
+                        MDBoxLayout:
+                            orientation:'vertical'
+                            spacing:'15dp'
+                            MDTextField:
+                                id:add_user_name   
+                                hint_text: "User Name"
+                                mode: "fill"
+                                max_text_length: 30
+                                helper_text: "Please fill Name Field"
+                                helper_text_mode:'on_error'
+                            MDTextField:
+                                id:add_user_address
+                                hint_text: "User Address"
+                                mode: "fill"
+                                max_text_length: 100
+                                helper_text: "Please fill Address Field"
+                                helper_text_mode:'on_error'
+                            MDTextField:
+                                id:add_user_phone
+                                hint_text: "User Phone Number"
+                                mode: "fill"
+                                max_text_length: 11
+                                helper_text: "Please fill Phone number Field"
+                                helper_text_mode:'on_error'
+                                input_filter:'int'
+                            Label:
+                        MDBoxLayout:
+                            size_hint_y:.1
+                            spacing:'30dp'
+                            MDFillRoundFlatIconButton:
+                                text:'Add'
+                                icon:'plus'
+                                on_release:root.add_user()
 
-                    right_action_items: [["volume-high", lambda x: app.play_sound()],['information',lambda x:app.about()],['logout',lambda x:app.logout()]]
-                    left_action_items:[['menu',lambda x:nav_drawer.set_state('open')]]
+                            MDFillRoundFlatIconButton:
+                                text:'Clear'
+                                icon:'eraser'
+                                on_release:
+                                    add_user_name.text=""
+                                    add_user_address.text=""
+                                    add_user_phone.text=""
+                                    result_search_user.clear_widgets()
+                                
             MDScreen:
                 name:'edit-user-admin'
-                MDTopAppBar:
-                    title:'EDIT USER'
+                MDBoxLayout:
+                    spacing:'15dp'
+                    orientation:'vertical'
+                    MDTopAppBar:
+                        title:'EDIT USER'
+                        right_action_items: [["volume-high", lambda x: app.play_sound()],['information',lambda x:app.about()],['logout',lambda x:app.logout()]]
+                        left_action_items:[['menu',lambda x:nav_drawer.set_state('open')]]
+                    MDBoxLayout:
+                        padding:'20dp'
+                        spacing:'30dp'
+                        orientation:"vertical"
+                        halign:'center'
+                        MDBoxLayout:
+                            orientation:'vertical'
+                            spacing:'15dp'
+                            MDTextField:
+                                id:find_user_by_name   
+                                hint_text: "Name"
+                                mode: "fill"
+                                max_text_length: 30
+                                helper_text: "Search by name"
+                                on_text:root.user_suggestion(self)
+                            MDTextField:
+                                id:find_user_by_id
+                                hint_text: "User ID"
+                                mode: "fill"
+                                max_text_length: 30
+                                helper_text: "Search by User ID"
+                                input_filter:'int'
+                                on_text:root.user_suggestion(self)
+                        MDBoxLayout:
+                            size_hint_y:.5
+                            spacing:'30dp'
+                            MDFillRoundFlatIconButton:
+                                text:'Search'
+                                icon:'magnify'
+                                on_release:root.search_user()
 
-                    right_action_items: [["volume-high", lambda x: app.play_sound()],['information',lambda x:app.about()],['logout',lambda x:app.logout()]]
-                    left_action_items:[['menu',lambda x:nav_drawer.set_state('open')]]
+                            MDFillRoundFlatIconButton:
+                                text:'Clear'
+                                icon:'eraser'
+                                on_release:
+                                    find_user_by_id.text=""
+                                    find_user_by_name.text=""
+                                    result_search_edit_user.clear_widgets()
+                                
+                    MDScrollView:
+                        canvas.before:
+                            Color:
+                                rgba: 0,0,0,1
+                            Line:
+                                width: 3
+                                rectangle: self.x, self.y, self.width, self.height
+
+                        MDList:
+                            id:result_search_edit_user
+
             MDScreen:
                 name:'remove-user-admin'
-                MDTopAppBar:
-                    title:'REMOVE USER'
+                MDBoxLayout:
+                    spacing:'15dp'
+                    orientation:'vertical'
+                    MDTopAppBar:
+                        title:'REMOVE USER'
+                        right_action_items: [["volume-high", lambda x: app.play_sound()],['information',lambda x:app.about()],['logout',lambda x:app.logout()]]
+                        left_action_items:[['menu',lambda x:nav_drawer.set_state('open')]]
+                    MDBoxLayout:
+                        padding:'20dp'
+                        spacing:'30dp'
+                        orientation:"vertical"
+                        halign:'center'
+                        MDBoxLayout:
+                            orientation:'vertical'
+                            spacing:'15dp'
+                            MDTextField:
+                                id:remove_by_name   
+                                hint_text: "Name"
+                                mode: "fill"
+                                max_text_length: 30
+                                helper_text: "Search by name"
+                                on_text:root.user_suggestion(self)
+                            MDTextField:
+                                id:remove_by_id
+                                hint_text: "User ID"
+                                mode: "fill"
+                                max_text_length: 30
+                                helper_text: "Search by User ID"
+                                input_filter:'int'
+                                on_text:root.user_suggestion(self)
+                        MDBoxLayout:
+                            size_hint_y:.5
+                            spacing:'30dp'
+                            MDFillRoundFlatIconButton:
+                                text:'Search'
+                                icon:'magnify'
+                                on_release:root.search_user()
 
-                    right_action_items: [["volume-high", lambda x: app.play_sound()],['information',lambda x:app.about()],['logout',lambda x:app.logout()]]
-                    left_action_items:[['menu',lambda x:nav_drawer.set_state('open')]]
+                            MDFillRoundFlatIconButton:
+                                text:'Clear'
+                                icon:'eraser'
+                                on_release:
+                                    remove_by_name .text=""
+                                    remove_by_id.text=""
+                                    result_remove_search_user.clear_widgets()
+                                
+                    MDScrollView:
+                        canvas.before:
+                            Color:
+                                rgba: 0,0,0,1
+                            Line:
+                                width: 3
+                                rectangle: self.x, self.y, self.width, self.height
+
+                        MDList:
+                            id: result_remove_search_user
 
             MDScreen:
                 name:'borrowed-book-admin'
-                MDTopAppBar:
-                    title:'BORROWED BOOK'
+                MDBoxLayout:
+                    spacing:'15dp'
+                    orientation:'vertical'
+                    MDTopAppBar:
+                        title:'BORROWED BOOK'
+                        right_action_items: [["volume-high", lambda x: app.play_sound()],['information',lambda x:app.about()],['logout',lambda x:app.logout()]]
+                        left_action_items:[['menu',lambda x:nav_drawer.set_state('open')]]
+                    MDBoxLayout:
+                        padding:'20dp'
+                        spacing:'30dp'
+                        orientation:"vertical"
+                        halign:'center'
+                        MDBoxLayout:
+                            orientation:'vertical'
+                            spacing:'15dp'
+                            MDTextField:
+                                id:search_by_user_name 
+                                hint_text: "USER NAME"
+                                mode: "fill"
+                                max_text_length: 30
+                                helper_text: "Search by NAME"
+                                on_text:root.user_suggestion(self)
+                            MDTextField:
+                                id:search_by_user_id   
+                                hint_text: "USER ID"
+                                helper_text_mode:'on_error'
+                                mode: "fill"
+                                max_text_length: 30
+                                helper_text: "Search by ID"
+                                input_filter:'int'
+                                on_text:root.user_suggestion(self)
+                            MDTextField:
+                                id:search_by_book_title
+                                helper_text: "Search by Book Title"
+                                hint_text: "BOOK TITLE"
+                                mode: "fill"
+                                max_text_length: 100
+                                on_text:root.book_suggestion(self)
+                            MDTextField:
+                                id:search_by_book_id
+                                helper_text: "Search by Book ID"
+                                hint_text: "BOOK ID"
+                                mode: "fill"
+                                helper_text_mode:'on_error'
+                                max_text_length: 30
+                                input_filter:'int'
+                                on_text:root.book_suggestion(self)
+                            MDBoxLayout:
+                                spacing:'15dp'
+                                MDFillRoundFlatIconButton:
+                                    text:'Borrow'
+                                    icon:'plus'
+                                    on_release:root.borrow_book()
 
-                    right_action_items: [["volume-high", lambda x: app.play_sound()],['information',lambda x:app.about()],['logout',lambda x:app.logout()]]
-                    left_action_items:[['menu',lambda x:nav_drawer.set_state('open')]]
+                                MDFillRoundFlatIconButton:
+                                    text:'Clear'
+                                    icon:'eraser'
+                                    on_release:
+                                        search_by_book_id.text=""
+                                        search_by_user_id.text=""
+                                    
+                                        result_borrowed_book.clear_widgets()
+                        MDScrollView:
+                            size_hint_y:None
+                            height:'150dp'
+                            canvas.before:
+                                Color:
+                                    rgba: 0,0,0,1
+                                Line:
+                                    width: 3
+                                    rectangle: self.x, self.y, self.width, self.height
+
+                            MDList:
+                                id: result_borrowed_book
 
             MDScreen:
                 name:'search-book-admin'
-                MDTopAppBar:
-                    title:'SEARCH BOOK'
+                MDBoxLayout:
+                    spacing:'15dp'
+                    orientation:'vertical'
+                    MDTopAppBar:
+                        title:'SEARCH BOOK'
+                        right_action_items: [["volume-high", lambda x: app.play_sound()],['information',lambda x:app.about()],['logout',lambda x:app.logout()]]
+                        left_action_items:[['menu',lambda x:nav_drawer.set_state('open')]]
+                    MDBoxLayout:
+                        padding:'20dp'
+                        spacing:'30dp'
+                        orientation:"vertical"
+                        halign:'center'
+                        MDBoxLayout:
+                            orientation:'vertical'
+                            spacing:'15dp'
+                            MDTextField:
+                                id:search_book_by_title 
+                                hint_text: "Title"
+                                mode: "fill"
+                                max_text_length: 100
+                                helper_text: "Search by Title"
+                                on_text:root.book_suggestion(self)
+                            MDTextField:
+                                id:search_book_by_id
+                                hint_text: "Book ID"
+                                mode: "fill"
+                                max_text_length: 30
+                                helper_text: "Search by Book ID"
+                                input_filter:'int'
+                                on_text:root.book_suggestion(self)
+                        MDBoxLayout:
+                            size_hint_y:.5
+                            spacing:'30dp'
+                            MDFillRoundFlatIconButton:
+                                text:'Search'
+                                icon:'magnify'
+                                on_release:root.search_book()
 
-                    right_action_items: [["volume-high", lambda x: app.play_sound()],['information',lambda x:app.about()],['logout',lambda x:app.logout()]]
-                    left_action_items:[['menu',lambda x:nav_drawer.set_state('open')]]
+                            MDFillRoundFlatIconButton:
+                                text:'Clear'
+                                icon:'eraser'
+                                on_release:
+                                    search_book_by_id.text=""
+                                    search_book_by_title.text=""
+                                    result_search_book.clear_widgets()
+                                
+                    MDScrollView:
+                        canvas.before:
+                            Color:
+                                rgba: 0,0,0,1
+                            Line:
+                                width: 3
+                                rectangle: self.x, self.y, self.width, self.height
+
+                        MDList:
+                            id: result_search_book
+
+
             MDScreen:
                 name:'add-book-admin'
-                MDTopAppBar:
-                    title:'ADD BOOK'
+                MDBoxLayout:
+                    spacing:'15dp'
+                    orientation:'vertical'
+                    MDTopAppBar:
+                        title:'ADD BOOK'
+                        right_action_items: [["volume-high", lambda x: app.play_sound()],['information',lambda x:app.about()],['logout',lambda x:app.logout()]]
+                        left_action_items:[['menu',lambda x:nav_drawer.set_state('open')]]
+                    MDBoxLayout:
+                        padding:'20dp'
+                        spacing:'10dp'
+                        orientation:"vertical"
+                        halign:'center'
+                        MDBoxLayout:
+                            orientation:'vertical'
+                            spacing:'15dp'
+                            MDTextField:
+                                id:add_book_title   
+                                hint_text: "Title"
+                                mode: "fill"
+                                max_text_length: 100
+                                helper_text: "Please fill Title"
+                                helper_text_mode:'on_error'
+                            MDTextField:
+                                id:add_book_pub
+                                hint_text: "Publisher"
+                                mode: "fill"
+                                max_text_length: 30
+                                helper_text: "Please fill Publisher"
+                                helper_text_mode:'on_error'
+                            MDTextField:
+                                id:add_book_author
+                                hint_text: "Author"
+                                mode: "fill"
+                                max_text_length: 30
+                                helper_text: "Please fill Author"
+                                helper_text_mode:'on_error'
+                            MDTextField:
+                                id:add_book_category
+                                hint_text: "Category"
+                                mode: "fill"
+                                max_text_length: 30
+                                helper_text: "Please fill Category"
+                                helper_text_mode:'on_error'
+                                on_text:root.category_suggestion(self)
+                            MDTextField:
+                                id:add_book_price
+                                hint_text: "Price"
+                                mode: "fill"
+                                max_text_length: 30
+                                helper_text: "Please fill Price"
+                                helper_text_mode:'on_error'
+                                input_filter:'float'
+                            Label:
+                        MDBoxLayout:
+                            size_hint_y:.1
+                            spacing:'30dp'
+                            MDFillRoundFlatIconButton:
+                                text:'Add'
+                                icon:'plus'
+                                on_release:root.add_book()
 
-                    right_action_items: [["volume-high", lambda x: app.play_sound()],['information',lambda x:app.about()],['logout',lambda x:app.logout()]]
-                    left_action_items:[['menu',lambda x:nav_drawer.set_state('open')]]
+                            MDFillRoundFlatIconButton:
+                                text:'Clear'
+                                icon:'eraser'
+                                on_release:
+                                    add_book_title.text=""
+                                    add_book_pub.text=""
+                                    add_book_author.text=""
+                                    add_book_category.text=""
+                                    add_book_price.text=""
+
             MDScreen:
                 name:'edit-book-admin'
-                MDTopAppBar:
-                    title:'EDIT BOOK'
+                MDBoxLayout:
+                    spacing:'15dp'
+                    orientation:'vertical'
+                    MDTopAppBar:
+                        title:'EDIT BOOK'
+                        right_action_items: [["volume-high", lambda x: app.play_sound()],['information',lambda x:app.about()],['logout',lambda x:app.logout()]]
+                        left_action_items:[['menu',lambda x:nav_drawer.set_state('open')]]
+                    MDBoxLayout:
+                        padding:'20dp'
+                        spacing:'30dp'
+                        orientation:"vertical"
+                        halign:'center'
+                        MDBoxLayout:
+                            orientation:'vertical'
+                            spacing:'15dp'
+                            MDTextField:
+                                id:find_book_by_title
+                                hint_text: "Title"
+                                mode: "fill"
+                                max_text_length: 100
+                                helper_text: "Search by title"
+                                on_text:root.book_suggestion(self)
+                            MDTextField:
+                                id:find_book_by_id
+                                hint_text: "Book ID"
+                                mode: "fill"
+                                max_text_length: 30
+                                helper_text: "Search by Book ID"
+                                input_filter:'int'
+                                on_text:root.book_suggestion(self)
+                        MDBoxLayout:
+                            size_hint_y:.5
+                            spacing:'30dp'
+                            MDFillRoundFlatIconButton:
+                                text:'Search'
+                                icon:'magnify'
+                                on_release:root.search_book()
 
-                    right_action_items: [["volume-high", lambda x: app.play_sound()],['information',lambda x:app.about()],['logout',lambda x:app.logout()]]
-                    left_action_items:[['menu',lambda x:nav_drawer.set_state('open')]]
-            MDScreen:
-                name:'remove-book-admin'
-                MDTopAppBar:
-                    title:'REMOVE BOOK'
+                            MDFillRoundFlatIconButton:
+                                text:'Clear'
+                                icon:'eraser'
+                                on_release:
+                                    find_book_by_id.text=""
+                                    find_book_by_title.text=""
+                                    result_search_edit_book.clear_widgets()
+                                
+                    MDScrollView:
+                        canvas.before:
+                            Color:
+                                rgba: 0,0,0,1
+                            Line:
+                                width: 3
+                                rectangle: self.x, self.y, self.width, self.height
 
-                    right_action_items: [["volume-high", lambda x: app.play_sound()],['information',lambda x:app.about()],['logout',lambda x:app.logout()]]
-                    left_action_items:[['menu',lambda x:nav_drawer.set_state('open')]]
+                        MDList:
+                            id:result_search_edit_book
 
-            MDScreen:
-                name:'fines-admin'
-                MDTopAppBar:
-                    title:'FINES'
-
-                    right_action_items: [["volume-high", lambda x: app.play_sound()],['information',lambda x:app.about()],['logout',lambda x:app.logout()]]
-                    left_action_items:[['menu',lambda x:nav_drawer.set_state('open')]]
 
 
         MDNavigationDrawer:
             id:nav_drawer
-
             radius:(0,20,20,0)
             MDNavigationDrawerMenu:
                 MDNavigationDrawerHeader:
@@ -361,49 +892,54 @@ WindowManager:
                 DrawerClickableItem:
                     text:'ADD USER'
                     icon:'account-plus'
-                    on_release:screenmanager_admin.current='add-user-admin'
+                    on_release:
+                        screenmanager_admin.current='add-user-admin'
+                        nav_drawer.set_state("close")
                 DrawerClickableItem:
                     text:'REMOVE USER'
                     icon:'account-remove'
-                    on_release:screenmanager_admin.current='remove-user-admin'
+                    on_release:
+                        screenmanager_admin.current='remove-user-admin'
+                        nav_drawer.set_state("close")
                 DrawerClickableItem:
                     text:'EDIT USER'
                     icon:'account-edit'
-                    on_release:screenmanager_admin.current='edit-user-admin'
+                    on_release:
+                        screenmanager_admin.current='edit-user-admin'
+                        nav_drawer.set_state("close")
                 DrawerClickableItem:
                     text:'SEARCH USER'
                     icon:'account-search'
-                    on_release:screenmanager_admin.current='search-user-admin'
+                    on_release:
+                        screenmanager_admin.current='search-user-admin'
+                        nav_drawer.set_state("close")
                 MDNavigationDrawerDivider:
                 MDNavigationDrawerLabel:
                     text:'BOOKS'
                 DrawerClickableItem:
                     text:'ADD BOOK'
                     icon:'book-plus'
-                    on_release:screenmanager_admin.current='add-book-admin'
+                    on_release:
+                        screenmanager_admin.current='add-book-admin'
+                        nav_drawer.set_state("close")
                 DrawerClickableItem:
                     text:'EDIT BOOK'
                     icon:'book-edit'
-                    on_release:screenmanager_admin.current='edit-book-admin'
-                DrawerClickableItem:
-                    text:'REMOVE BOOK'
-                    icon:'book-remove'
-                    on_release:screenmanager_admin.current='remove-book-admin'
+                    on_release:
+                        screenmanager_admin.current='edit-book-admin'
+                        nav_drawer.set_state("close")
                 DrawerClickableItem:
                     text:'SEARCH BOOK'
                     icon:'book-search'
-                    on_release:screenmanager_admin.current='search-book-admin'
+                    on_release:
+                        screenmanager_admin.current='search-book-admin'
+                        nav_drawer.set_state("close")
                 DrawerClickableItem:
                     text:'BORROWED BOOKS'
                     icon:'book-multiple'
-                    on_release:screenmanager_admin.current='borrowed-book-admin'
-                MDNavigationDrawerDivider:
-                MDNavigationDrawerLabel:
-                    text:'FINES'
-                DrawerClickableItem:
-                    text:'FINES STATUS'
-                    icon:'currency-usd'
-                    on_release:screenmanager_admin.current='fines-admin'
+                    on_release:
+                        screenmanager_admin.current='borrowed-book-admin'
+                        nav_drawer.set_state("close")
 
 
 <PasswordTextField>
@@ -412,7 +948,7 @@ WindowManager:
     MDTextField:
         id:password
         password:1
-        font_size:18
+        font_size:'18sp'
         icon_left: "key-variant"
         hint_text:'Password'
 
@@ -477,7 +1013,7 @@ WindowManager:
                             text:'Login'
                             font_size:'20sp'
                             md_bg_color:'green'
-
+                            elevation:0
                             on_release:
                                 root.next_page()
 
@@ -488,6 +1024,7 @@ WindowManager:
                             theme_text_color:'Custom'
                             md_bg_color:'red'
                             text_color:'white'
+                            elevation:0
                             on_release:app.stop()
 
 
@@ -522,6 +1059,7 @@ WindowManager:
                             id:user_password
                         Label:
                         MDRaisedButton:
+                            elevation:0
                             size_hint_x:1
                             text:'Login'
                             font_size:'20sp'
@@ -533,6 +1071,7 @@ WindowManager:
                         MDRaisedButton:
                             size_hint_x:1
                             text:'Exit'
+                            elevation:0
                             font_size:'20sp'
                             theme_text_color:'Custom'
                             md_bg_color:'red'
@@ -560,3 +1099,237 @@ WindowManager:
         text:'Developer: Mohammad Ali Bazzazi'
         bold:1
 
+
+<UserScreen>
+    id:user
+    name:'user'
+    MDNavigationLayout:
+        MDScreenManager:
+            id:screenmanager_user
+            MDScreen:
+                FitImage:
+                    id:background
+                    source:"images/light.jpeg"
+                MDBoxLayout:
+                    MDTopAppBar:
+                        title:'User Page'
+                        right_action_items: [["volume-high", lambda x: app.play_sound()],['information',lambda x:app.about()],['logout',lambda x:app.logout()]]
+                        left_action_items:[['menu',lambda x:nav_drawer.set_state('open')]]
+
+            MDScreen:
+                name:'search-book-user'
+                MDBoxLayout:
+                    spacing:'15dp'
+                    orientation:'vertical'
+                    MDTopAppBar:
+                        title:'SEARCH BOOK'
+                        right_action_items: [["volume-high", lambda x: app.play_sound()],['information',lambda x:app.about()],['logout',lambda x:app.logout()]]
+                        left_action_items:[['menu',lambda x:nav_drawer.set_state('open')]]
+                    MDBoxLayout:
+                        padding:'20dp'
+                        spacing:'30dp'
+                        orientation:"vertical"
+                        halign:'center'
+                        MDBoxLayout:
+                            orientation:'vertical'
+                            spacing:'15dp'
+                            MDTextField:
+                                id:search_book_by_title 
+                                hint_text: "Title"
+                                mode: "fill"
+                                max_text_length: 100
+                                helper_text: "Search by Title"
+                                on_text:root.book_suggestion(self)
+                            MDTextField:
+                                id:search_book_by_id
+                                hint_text: "Book ID"
+                                mode: "fill"
+                                max_text_length: 30
+                                helper_text: "Search by Book ID"
+                                input_filter:'int'
+                                on_text:root.book_suggestion(self)
+                        MDBoxLayout:
+                            size_hint_y:.5
+                            spacing:'30dp'
+                            MDFillRoundFlatIconButton:
+                                text:'Search'
+                                icon:'magnify'
+                                on_release:root.search_book()
+
+                            MDFillRoundFlatIconButton:
+                                text:'Clear'
+                                icon:'eraser'
+                                on_release:
+                                    search_book_by_id.text=""
+                                    search_book_by_title.text=""
+                                    result_search_book.clear_widgets()
+                                
+                    MDScrollView:
+                        canvas.before:
+                            Color:
+                                rgba: 0,0,0,1
+                            Line:
+                                width: 3
+                                rectangle: self.x, self.y, self.width, self.height
+
+                        MDList:
+                            id: result_search_book
+   
+
+            MDScreen:
+                name:'edit-info-user'
+                on_pre_enter:edit_user_fine.text=str(root.get_loginer()[5])+" RIAL"
+                MDBoxLayout:
+                    orientation:'vertical'
+                    spacing:'10dp'
+                    MDTopAppBar:
+                        title:'EDIT YOUR ACCOUNT INFO'
+                        right_action_items: [["volume-high", lambda x: app.play_sound()],['information',lambda x:app.about()],['logout',lambda x:app.logout()]]
+                        left_action_items:[['menu',lambda x:nav_drawer.set_state('open')]]
+                    MDBoxLayout:
+                        padding:'15dp'
+                        orientation:'vertical'
+                        spacing: "20dp"
+                        MDTextField:
+                            input_filter:'float'
+                            id:edit_user_fine
+                            mode:'fill'
+                            disabled: 'True'
+                        MDTextField:
+                            hint_text: "NEW NAME"
+                            mode:'fill'
+                            id:edit_user_name
+
+                        MDTextField:
+                            hint_text: "NEW ADDRESS"
+                            mode:'fill'
+                            id:edit_user_address
+                            max_text_length:100
+
+
+                        MDTextField:        
+                            input_filter:'int'
+                            hint_text: "NEW PHONE NUMBER"
+                            id:edit_phone_number
+                            max_text_length:11
+                            mode:'fill'
+
+                        MDTextField:        
+                            hint_text: "NEW PASSWORD"
+                            id:edit_user_password
+                            mode:'fill'
+
+                        MDBoxLayout:
+                            size_hint_y:.5
+                            spacing:'30dp'
+                            padding:'15dp'
+                            MDFillRoundFlatIconButton:
+                                text:'Edit'
+                                icon:'pencil'
+                                on_release:root.edit_user()
+
+                            MDFillRoundFlatIconButton:
+                                text:'Clear'
+                                icon:'eraser'
+                                on_release:
+                                    edit_user_name.text=""
+                                    edit_user_address.text=""
+                                    edit_user_fine.text=""
+                                    edit_phone_number.text=""
+                                    edit_user_password.text=""
+
+            MDScreen:
+                name:'borrowed-book-user'
+                on_enter:root.borrow_book()
+                MDBoxLayout:
+                    orientation:'vertical'
+                    MDTopAppBar:
+                        title:'BORROWED BOOKS'
+                        right_action_items: [["volume-high", lambda x: app.play_sound()],['information',lambda x:app.about()],['logout',lambda x:app.logout()]]
+                        left_action_items:[['menu',lambda x:nav_drawer.set_state('open')]]
+                    MDBoxLayout:
+                        orientation:'vertical'
+                        padding:'20dp'
+                        spacing:'10dp'
+                        MDLabel:
+                            text: f"You have {len(list_borrowed_book_user.children)} borrowed books"
+                            font_size:'20sp'
+                            size_hint_y:None
+                            height:'40dp'
+                        MDScrollView:
+                            canvas.before:
+                                Color:
+                                    rgba: 0,0,0,1
+                                Line:
+                                    width: 3
+                                    rectangle: self.x, self.y, self.width, self.height
+
+                            MDList:
+                                id:list_borrowed_book_user
+            MDScreen:
+                name:'user_fine_screen'
+                on_pre_enter:user_fine_status.text=f"You Debt is {str(root.get_loginer()[5])} Rials"
+                MDBoxLayout:
+                    orientation:'vertical'
+                    MDTopAppBar:
+                        title:'YOUR FINE STATUS'
+                        right_action_items: [["volume-high", lambda x: app.play_sound()],['information',lambda x:app.about()],['logout',lambda x:app.logout()]]
+                        left_action_items:[['menu',lambda x:nav_drawer.set_state('open')]]
+                    MDGridLayout:
+                        cols:1
+                        size_hint:None,None
+                        width:'300dp'
+                        height:'350dp'
+                        pos_hint:{'center_x':.5,'center_y':.5}
+                        MDLabel:
+                            id:user_fine_status
+                            font_size:'30sp'
+                        MDFillRoundFlatIconButton:
+                            text:'Pay'
+                            icon:"currency-usd"
+                            md_bg_color:[1,0,0,1]
+                            font_size:'30sp'
+                    Label:
+
+        MDNavigationDrawer:
+            id:nav_drawer
+            radius:(0,20,20,0)
+            MDNavigationDrawerMenu:
+                MDNavigationDrawerHeader:
+                    title:'USER options'
+                    source:'images/book-icon.png'
+                    spacing:'20dp'
+                MDNavigationDrawerDivider:
+                MDNavigationDrawerLabel:
+                    text:'USER'
+                DrawerClickableItem:
+                    text:'EDIT MY INFO'
+                    icon:'account-edit'
+                    on_release:
+                        screenmanager_user.current='edit-info-user'
+                        nav_drawer.set_state('close')
+
+                MDNavigationDrawerDivider:
+                MDNavigationDrawerLabel:
+                    text:'BOOK'
+                DrawerClickableItem:
+                    text:'SEARCH BOOK'
+                    icon:'book-search'
+                    on_release:
+                        screenmanager_user.current='search-book-user'
+                        nav_drawer.set_state('close')
+                DrawerClickableItem:
+                    text:'BORROWED BOOKS'
+                    icon:'book-multiple'
+                    on_release:
+                        screenmanager_user.current='borrowed-book-user'
+                        nav_drawer.set_state('close')
+                MDNavigationDrawerDivider:
+                MDNavigationDrawerLabel:
+                    text:'FINES'
+                DrawerClickableItem:
+                    text:'YOUR FINE STATUS'
+                    icon:'currency-usd'
+                    on_release:
+                        screenmanager_user.current='user_fine_screen'
+                        nav_drawer.set_state('close')
