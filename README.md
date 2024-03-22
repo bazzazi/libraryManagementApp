@@ -11,7 +11,7 @@ Windows, macOS, Linux, Android, IOS
 After cloning the repo, run the following command to install prerequisite libraries:
 
 ```
-pip3 install -r requirement.txt
+pip3 install kivymd
 ```
 
 If pip3 is not install then run the following command:
@@ -20,7 +20,6 @@ If pip3 is not install then run the following command:
 sudo apt install python3-pip
 ```
 
-or you can use the project's virtual environment called **==venv==**
 ## Copyright :copyright:
 :warning: Using the project in anyway only **with attribution** is possible.
 
