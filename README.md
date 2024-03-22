@@ -34,7 +34,6 @@ sudo apt install python3-pip
 ## Contact Developer :link:
 <p align="left">
   <a href="https://www.facebook.com/bazzazi" target="_blank" rel="noreferrer"> <img src="https://github.com/bazzazi/RequiredImages/blob/main/facebook.png" width="40px"/></a>
-  <a href="https://www.github.com/bazzazi" target="_blank" rel="noreferrer"><img src="https://github.com/bazzazi/RequiredImages/blob/main/github.png" width="40px"/></a> 
   <a href="http://www.instagram.com/bazzazi" target="_blank" rel="noreferrer"> <img src="https://github.com/bazzazi/RequiredImages/blob/main/instagram.png" width="40px"/> </a>
   <a href="https://www.linkedin.com/in/bazzazi/" target="_blank" rel="noreferrer"><img src="https://github.com/bazzazi/RequiredImages/blob/main/linkedin.png" width="40px"/></a>
   <a href="https://www.stackoverflow.com/users/22125953" target="_blank" rel="noreferrer"><img src="https://github.com/bazzazi/RequiredImages/blob/main/stackoverflow.png" width="40px"/> </a>
