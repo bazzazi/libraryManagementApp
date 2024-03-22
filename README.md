@@ -5,6 +5,8 @@ Hope you doing well :blush:
 
 This is a simple musical **library project**  :books::musical_note: developed in `python` using `kivymd` library.
 
+it uses SQLite database <img src="https://github.com/bazzazi/libraryManagementApp/blob/master/images/screenshots/database.png" width='25px'>
+
 ## Platforms :iphone::computer:
 Windows, macOS, Linux, Android, IOS
 
