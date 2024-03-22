@@ -24,12 +24,13 @@ sudo apt install python3-pip
 :warning: Using the project in anyway only **with attribution** is possible.
 
 ## Screenshots 📷:
-![application image](https://github.com/bazzazi/libraryManagementApp/blob/master/images/screenshots/1.png | width=100) 
-![application image](https://github.com/bazzazi/libraryManagementApp/blob/master/images/screenshots/2.png | width=100) 
-![application image](https://github.com/bazzazi/libraryManagementApp/blob/master/images/screenshots/3.png | width=100) 
-![application image](https://github.com/bazzazi/libraryManagementApp/blob/master/images/screenshots/4.png | width=100) 
-![application image](https://github.com/bazzazi/libraryManagementApp/blob/master/images/screenshots/5.png | width=100)
-<img src="https://github.com/bazzazi/libraryManagementApp/blob/master/images/screenshots/1.png" width='200px'>
+
+<img src="https://github.com/bazzazi/libraryManagementApp/blob/master/images/screenshots/1.png" width='250px'>
+<img src="https://github.com/bazzazi/libraryManagementApp/blob/master/images/screenshots/2.png" width='250px'>
+<img src="https://github.com/bazzazi/libraryManagementApp/blob/master/images/screenshots/3png" width='250px'>
+<img src="https://github.com/bazzazi/libraryManagementApp/blob/master/images/screenshots/4.png" width='250px'>
+<img src="https://github.com/bazzazi/libraryManagementApp/blob/master/images/screenshots/5.png" width='250px'>
+
 
 
 ## Contact Developer :link:
