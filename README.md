@@ -1,5 +1,6 @@
 # Library Project :books:
 Hi everybody :wave:
+
 Hope you doing well :blush:
 
 This is a simple musical **library project**  :books::musical_note: developed in `python` using `kivymd` library.
@@ -21,16 +22,11 @@ sudo apt install python3-pip
 ```
 
 ## Copyright :copyright:
-:warning: Using the project in anyway only **with attribution** is possible.
+:warning: You should mention the Developer in any kind of usage.
 
 ## Screenshots 📷:
 
-<img src="https://github.com/bazzazi/libraryManagementApp/blob/master/images/screenshots/1.png" width='250px'>
-<img src="https://github.com/bazzazi/libraryManagementApp/blob/master/images/screenshots/2.png" width='250px'>
-<img src="https://github.com/bazzazi/libraryManagementApp/blob/master/images/screenshots/3png" width='250px'>
-<img src="https://github.com/bazzazi/libraryManagementApp/blob/master/images/screenshots/4.png" width='250px'>
-<img src="https://github.com/bazzazi/libraryManagementApp/blob/master/images/screenshots/5.png" width='250px'>
-
+<img src="https://github.com/bazzazi/libraryManagementApp/blob/master/images/screenshots/1.png" width='250px'><img src="https://github.com/bazzazi/libraryManagementApp/blob/master/images/screenshots/2.png" width='250px'><img src="https://github.com/bazzazi/libraryManagementApp/blob/master/images/screenshots/3png" width='250px'><img src="https://github.com/bazzazi/libraryManagementApp/blob/master/images/screenshots/4.png" width='250px'><img src="https://github.com/bazzazi/libraryManagementApp/blob/master/images/screenshots/5.png" width='250px'>
 
 
 ## Contact Developer :link:
