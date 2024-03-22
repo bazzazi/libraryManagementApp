@@ -24,11 +24,11 @@ sudo apt install python3-pip
 :warning: Using the project in anyway only **with attribution** is possible.
 
 ## Screenshots 📷:
-![application image](https://github.com/bazzazi/libraryManagementApp/blob/master/images/screenshots/1.png) 
-![application image](https://github.com/bazzazi/libraryManagementApp/blob/master/images/screenshots/2.png) 
-![application image](https://github.com/bazzazi/libraryManagementApp/blob/master/images/screenshots/3.png) 
-![application image](https://github.com/bazzazi/libraryManagementApp/blob/master/images/screenshots/4.png) 
-![application image](https://github.com/bazzazi/libraryManagementApp/blob/master/images/screenshots/5.png)
+![application image](https://github.com/bazzazi/libraryManagementApp/blob/master/images/screenshots/1.png | width=100) 
+![application image](https://github.com/bazzazi/libraryManagementApp/blob/master/images/screenshots/2.png | width=100) 
+![application image](https://github.com/bazzazi/libraryManagementApp/blob/master/images/screenshots/3.png | width=100) 
+![application image](https://github.com/bazzazi/libraryManagementApp/blob/master/images/screenshots/4.png | width=100) 
+![application image](https://github.com/bazzazi/libraryManagementApp/blob/master/images/screenshots/5.png | width=100)
 
 
 ## Contact Developer :link:
