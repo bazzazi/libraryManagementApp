@@ -26,7 +26,7 @@ sudo apt install python3-pip
 
 ## Screenshots 📷:
 
-<img src="https://github.com/bazzazi/libraryManagementApp/blob/master/images/screenshots/1.png" width='250px'><img src="https://github.com/bazzazi/libraryManagementApp/blob/master/images/screenshots/2.png" width='250px'><img src="https://github.com/bazzazi/libraryManagementApp/blob/master/images/screenshots/3png" width='250px'><img src="https://github.com/bazzazi/libraryManagementApp/blob/master/images/screenshots/4.png" width='250px'><img src="https://github.com/bazzazi/libraryManagementApp/blob/master/images/screenshots/5.png" width='250px'>
+<img src="https://github.com/bazzazi/libraryManagementApp/blob/master/images/screenshots/1.png" width='250px'><img src="https://github.com/bazzazi/libraryManagementApp/blob/master/images/screenshots/2.png" width='250px'><img src="https://github.com/bazzazi/libraryManagementApp/blob/master/images/screenshots/3.png" width='250px'><img src="https://github.com/bazzazi/libraryManagementApp/blob/master/images/screenshots/4.png" width='250px'><img src="https://github.com/bazzazi/libraryManagementApp/blob/master/images/screenshots/5.png" width='250px'>
 
 
 ## Contact Developer :link:
